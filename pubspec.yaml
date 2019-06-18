@@ -20,7 +20,20 @@ dependencies:
   flutter:
     sdk: flutter
 
-  
+  # For network calls and interactions
+  http: ^0.12.0+2
+
+  # To access user's location and perform geocoding for co-ordinates
+  geolocator: ^5.0.1
+
+  # For app level state management
+  provider: ^3.0.0+1
+
+  # To provide an on-device sql database for offline persistence
+  sqflite: ^1.1.5
+
+  # To access the FontAwesome Icons library in-app
+  font_awesome_flutter: ^8.4.0
 
 dev_dependencies:
   flutter_test:
