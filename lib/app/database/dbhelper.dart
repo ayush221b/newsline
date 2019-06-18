@@ -34,7 +34,7 @@ class DBHelper {
         "author TEXT, title TEXT," +
         "description TEXT, url TEXT," +
         "urlToImage TEXT, publishedAt TEXT," +
-        "content TEXT )");
+        "content TEXT, category TEXT )");
     print("Created ARTICLES table");
   }
 
