@@ -38,6 +38,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: any # A package to test flutter apps
 
 
 # For information on the generic Dart part of this file, see the
