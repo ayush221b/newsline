@@ -1,8 +1,6 @@
 import 'package:meta/meta.dart';
 
-class NewsArticle {
-
-  /// `NewsArticle` provides a representative data model class
+/// `NewsArticle` provides a representative data model class
   /// which helps to parse the received json in response from NewsApi.org
   /// `source` : Map containing id(optional) and name of Source
   /// `author` : Author of article
@@ -12,6 +10,7 @@ class NewsArticle {
   /// `urlToImage` : Link to the image, relevant to the article
   /// `publishedAt` : Date and Time when the article was published in UTC(+000)
   /// `content` : Content of article, truncated to 260 characters (Developer Plan Limit)
+class NewsArticle {
 
   Map<String, String> source;
   String author; 
