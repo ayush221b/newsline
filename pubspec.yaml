@@ -35,6 +35,9 @@ dependencies:
   # To access the FontAwesome Icons library in-app
   font_awesome_flutter: ^8.4.0
 
+  # To find commonly used locations in the device filesystem
+  path_provider: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
