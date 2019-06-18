@@ -2,7 +2,8 @@ import 'package:meta/meta.dart';
 
 /// `NewsArticle` provides a representative data model class
   /// which helps to parse the received json in response from NewsApi.org
-  /// `source` : Map containing id(optional) and name of Source
+  /// `sourceId` : NewsApi Id(if present) of the source
+  /// `sourceName` : Name of Source
   /// `author` : Author of article
   /// `title` : Title of Article
   /// `description` : Description about article
@@ -12,7 +13,8 @@ import 'package:meta/meta.dart';
   /// `content` : Content of article, truncated to 260 characters (Developer Plan Limit)
 class NewsArticle {
 
-  Map<String, String> source;
+  String sourceId;
+  String sourceName;
   String author; 
   String title; 
   String description; 
@@ -22,7 +24,8 @@ class NewsArticle {
   String content;
 
   NewsArticle({
-    @required this.source,
+    @required this.sourceId,
+    @required this.sourceName,
     @required this.author,
     @required this.title,
     @required this.description,
@@ -36,7 +39,8 @@ class NewsArticle {
   /// it into a [NewsArticle] instance.
   NewsArticle.fromMap(Map<String, dynamic> responseMap) {
 
-    source = responseMap['source'];
+    sourceId = responseMap['source']['id'];
+    sourceName = responseMap['source']['name'];
     author = responseMap['author'];
     title = responseMap['title'];
     description = responseMap['description'];
@@ -51,7 +55,8 @@ class NewsArticle {
 
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
-    data['source'] = this.source;
+    data['sourceId'] = this.sourceId;
+    data['sourceName'] = this.sourceName;
     data['author'] = this.author;
     data['title'] = this.title;
     data['description'] = this.description;
