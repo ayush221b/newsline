@@ -2,12 +2,23 @@ import 'package:meta/meta.dart';
 
 class NewsArticle {
 
+  /// `NewsArticle` provides a representative data model class
+  /// which helps to parse the received json in response from NewsApi.org
+  /// `source` : Map containing id(optional) and name of Source
+  /// `author` : Author of article
+  /// `title` : Title of Article
+  /// `description` : Description about article
+  /// `url` : Url to original article
+  /// `urlToImage` : Link to the image, relevant to the article
+  /// `publishedAt` : Date and Time when the article was published in UTC(+000)
+  /// `content` : Content of article, truncated to 260 characters (Developer Plan Limit)
+
   Map<String, String> source;
-  String author;
-  String title;
-  String description;
-  String url;
-  String urlToImage;
+  String author; 
+  String title; 
+  String description; 
+  String url; 
+  String urlToImage; 
   DateTime publishedAt;
   String content;
 
@@ -22,6 +33,8 @@ class NewsArticle {
     @required this.content
   });
 
+  /// Named Constructor which receives a map [responseMap] and parses
+  /// it into a [NewsArticle] instance.
   NewsArticle.fromMap(Map<String, dynamic> responseMap) {
 
     source = responseMap['source'];
@@ -34,6 +47,7 @@ class NewsArticle {
     content = responseMap['content'];
   }
 
+  /// Function to generate a `Map<String, dynamic>` from a `NewsArticle` instance. 
   Map<String, dynamic> toMap() {
 
     final Map<String, dynamic> data = new Map<String, dynamic>();
