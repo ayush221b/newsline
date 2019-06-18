@@ -38,6 +38,9 @@ dependencies:
   # To find commonly used locations in the device filesystem
   path_provider: ^1.1.0
 
+  # To provide tools for reactive programming
+  rxdart: ^0.22.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
