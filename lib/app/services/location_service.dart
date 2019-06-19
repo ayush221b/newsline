@@ -25,7 +25,7 @@ class LocationService extends ChangeNotifier {
   PublishSubject<LocationState> _locationStateSubject = PublishSubject();
 
   /// Getter for location state
-  PublishSubject<LocationState> get authStateSubject {
+  PublishSubject<LocationState> get locationStateSubject {
     return _locationStateSubject;
   }
 
@@ -36,7 +36,6 @@ class LocationService extends ChangeNotifier {
   /// then get the last known location.
   Future getUserLocation() async {
     _locationStateSubject.add(LocationState.Finding);
-    notifyListeners();
 
     try {
       Position position = await _geolocator.getCurrentPosition(
@@ -84,6 +83,7 @@ class LocationService extends ChangeNotifier {
 
     if (location != null) {
       _userLocation = location;
+      notifyListeners();
       updateLocationState();
     } else {
       updateLocationState();
@@ -98,6 +98,5 @@ class LocationService extends ChangeNotifier {
     } else {
       _locationStateSubject.add(LocationState.Available);
     }
-    notifyListeners();
   }
 }

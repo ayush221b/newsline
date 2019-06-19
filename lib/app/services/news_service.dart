@@ -46,7 +46,6 @@ class NewsService extends ChangeNotifier {
 
     // Update NewsLoadState to Loading
     _newsLoadStateSubject.add(NewsLoadState.Loading);
-    notifyListeners();
 
     try {
       http.Response apiResponse = await http.get(baseUrl + requestParams);
@@ -94,7 +93,6 @@ class NewsService extends ChangeNotifier {
 
     // Update NewsLoadState
     _newsLoadStateSubject.add(NewsLoadState.Loading);
-    notifyListeners();
 
     // Get articles from db
     List<NewsArticle> cachedArticles = await _dbhelper.getArticles();
@@ -135,6 +133,5 @@ class NewsService extends ChangeNotifier {
     } else {
       _newsLoadStateSubject.add(NewsLoadState.Vacant);
     }
-    notifyListeners();
   }
 }
