@@ -81,7 +81,7 @@ class NewsService extends ChangeNotifier {
       bool isPresent = await _dbhelper.findMatchingArticle(article['url']);
 
       if (!isPresent) {
-        print(article['source']['id']);
+        
         Map<String, dynamic> articleToSave = Map.from(article);
         articleToSave.remove('source');
         articleToSave['sourceId'] = article['source']['id'] ?? '';

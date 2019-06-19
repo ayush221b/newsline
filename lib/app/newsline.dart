@@ -37,7 +37,7 @@ class _NewslineAppState extends State<NewslineApp> {
             primaryColor: Color(0xFF4E8AF4), brightness: Brightness.light),
         darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/loading',
+        initialRoute: '/',
         routes: buildNamedRoutes(_newsService, _locationService),
       ),
     );

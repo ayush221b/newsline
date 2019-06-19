@@ -51,7 +51,7 @@ class _LoadingViewState extends State<LoadingView> {
             _loadingText = 'Fetching News Articles...';
           });
         } else if (newsLoadState == NewsLoadState.Loaded) {
-          Navigator.pushNamed(context, '/');
+          Navigator.pushReplacementNamed(context, '/news');
         }
       });
 

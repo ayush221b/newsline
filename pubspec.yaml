@@ -14,7 +14,7 @@ description: An app which brings to you the latest News based on your location.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -36,13 +36,19 @@ dependencies:
   font_awesome_flutter: ^8.4.0
 
   # To find commonly used locations in the device filesystem
-  path_provider: ^1.1.0
+  path_provider: ^0.5.0+1
 
   # To provide tools for reactive programming
   rxdart: ^0.22.0
 
   # To use svg in project
   flutter_svg: ^0.13.0+2
+
+  # To use international formats
+  intl: any
+
+  # To cache images from the network on device
+  cached_network_image: ^0.8.0
 
 dev_dependencies:
   flutter_test:

@@ -7,8 +7,8 @@ import 'package:newsline/app/ui/screens/news_screen.dart';
 Map<String, WidgetBuilder> buildNamedRoutes(
     NewsService newsService, LocationService locationService) {
   Map<String, WidgetBuilder> namedRoutes = {
-    '/': (BuildContext context) => NewsScreen(),
-    '/loading': (BuildContext context) => LoadingScreen(
+    '/news': (BuildContext context) => NewsScreen(),
+    '/': (BuildContext context) => LoadingScreen(
           newsService: newsService,
           locationService: locationService,
         )
