@@ -54,6 +54,13 @@ class _LoadingViewState extends State<LoadingView> {
           Navigator.pushNamed(context, '/');
         }
       });
+
+    String countryCode =
+        this.widget.locationService.userLocation.isoCountryCode;
+    this
+        .widget
+        .newsService
+        .getArticlesFromDb(toRefresh: true, countryCode: countryCode);
   }
 
   @override
