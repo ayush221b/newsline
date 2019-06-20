@@ -12,6 +12,7 @@ class NewslineApp extends StatefulWidget {
 class _NewslineAppState extends State<NewslineApp> {
   NewsService _newsService;
   LocationService _locationService;
+  bool onboard = false;
 
   @override
   void initState() {
@@ -19,6 +20,8 @@ class _NewslineAppState extends State<NewslineApp> {
     _locationService = LocationService();
     super.initState();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

@@ -56,6 +56,9 @@ dependencies:
   # To share news to other platforms
   share: any
 
+  # To store small user data
+  shared_preferences: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,7 +79,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/image/news.svg
-  #  - images/a_dot_ham.jpeg
+   - assets/image/welcome.svg
+   - assets/image/search.svg
+   - assets/image/share.svg
+   - assets/image/click-here.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
