@@ -17,6 +17,7 @@ secret_key.dart
 *.ipr
 *.iws
 .idea/
+.vscode/
 
 # API key
 secret_key.dart
