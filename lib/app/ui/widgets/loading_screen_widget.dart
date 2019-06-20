@@ -24,7 +24,8 @@ class LoadingScreenWidget extends StatelessWidget {
               'Newsline',
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Lora',
+                  fontWeight: FontWeight.w700,
                   fontSize: 48,
                   letterSpacing: 5),
             ),

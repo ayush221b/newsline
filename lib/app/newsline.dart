@@ -34,7 +34,7 @@ class _NewslineAppState extends State<NewslineApp> {
       child: MaterialApp(
         title: 'Newsline',
         theme: ThemeData(
-            primaryColor: Color(0xFF4E8AF4), brightness: Brightness.light),
+            primaryColor: Color(0xFF14568C), brightness: Brightness.light),
         darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:newsline/app/models/news_article.dart';
 import 'package:newsline/app/services/news_service.dart';
+import 'package:newsline/app/ui/screens/single_news_screen.dart';
 
 class SearchNews extends SearchDelegate<String> {
   final NewsService newsService;
@@ -34,12 +36,16 @@ class SearchNews extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return null;
+    return searchAgainstQuery();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<NewsArticle> suggestionsList = [];
+    return searchAgainstQuery();
+  }
+
+  Widget searchAgainstQuery() {
+    List<NewsArticle> resultList = [];
 
     if (query.isEmpty || query.length < 3)
       return Padding(
@@ -51,7 +57,7 @@ class SearchNews extends SearchDelegate<String> {
         )),
       );
     else {
-      suggestionsList = List.from(newsService.articles.where((article) {
+      resultList = List.from(newsService.articles.where((article) {
         if (article.title.toLowerCase().contains(query.toLowerCase())) {
           print(article.title);
           return true;
@@ -59,35 +65,61 @@ class SearchNews extends SearchDelegate<String> {
           return false;
       }));
 
-      return ListView.builder(
-        padding: EdgeInsets.all(10),
-        itemCount: suggestionsList.length,
-        itemBuilder: (BuildContext context, int index) {
-          NewsArticle article = suggestionsList[index];
-          return Column(
-            children: <Widget>[
-              Container(
+      return renderList(resultList);
+    }
+  }
+
+  ListView renderList(List<NewsArticle> articleList) {
+    return ListView.builder(
+      padding: EdgeInsets.all(10),
+      itemCount: articleList.length,
+      itemBuilder: (BuildContext context, int index) {
+        NewsArticle article = articleList[index];
+        return Column(
+          children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return SingleNewsScreen(
+                    newsArticle: article,
+                  );
+                }));
+              },
+              child: Container(
                 padding: EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(width: 200, child: Text('${article.title}', style: TextStyle(fontSize: 18, fontFamily: 'Lora'),)),
-                    CachedNetworkImage(
-                      width: 100,
-                      imageUrl: article.urlToImage ?? '',
+                    Container(
+                        width: 200,
+                        child: Text(
+                          '${article.title}',
+                          style: TextStyle(fontSize: 18, fontFamily: 'Lora'),
+                        )),
+                    Hero(
+                      tag: article.url,
+                      child: CachedNetworkImage(
+                        width: 100,
+                        imageUrl: article.urlToImage ?? '',
+                        placeholder: (context, _) => SvgPicture.asset(
+                              'assets/image/news.svg',
+                              width: 100,
+                            ),
+                      ),
                     )
                   ],
                 ),
               ),
-              Container(
-                child: Divider(
-                  color: Colors.black54,
-                ),
+            ),
+            Container(
+              child: Divider(
+                color: Colors.black54,
               ),
-            ],
-          );
-        },
-      );
-    }
+            ),
+          ],
+        );
+      },
+    );
   }
 }

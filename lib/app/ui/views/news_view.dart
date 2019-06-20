@@ -19,14 +19,14 @@ class NewsView extends StatelessWidget {
         SliverAppBar(
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          expandedHeight: 250,
+          expandedHeight: 150,
           elevation: 0,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
               decoration: BoxDecoration(
-                  color: Color(0x55b5ccf2),
+                  color: Color(0xFF14568C),
                   borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(50))),
+                      BorderRadius.only(bottomRight: Radius.circular(50))),
               padding:
                   EdgeInsets.only(top: 32, left: 16, right: 16, bottom: 16),
               child: Column(
@@ -36,90 +36,65 @@ class NewsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.sort,
-                            size: 28,
-                            color: Color(0xFF14568C),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                child: Text('Newsline',
+                                padding: EdgeInsets.only(bottom: 15),
+                                child: Text('Newsline'.toUpperCase(),
                                     style: TextStyle(
-                                        color: Color(0xFF14568C),
-                                        fontSize: 26))),
-                            Container(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Text(
-                                    '${DateFormat.yMMMMd().format(DateTime.now())}',
-                                    style: TextStyle(
-                                        color: Color(0xFF14568C),
-                                        fontSize: 18))),
-                            Container(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(Icons.location_on,
-                                        color: Color(0xFF14568C)),
-                                    Text(
-                                        '${locationService.userLocation.administrativeArea}, ${locationService.userLocation.country}',
+                                        color: Colors.white,
+                                        fontSize: 26,
+                                        fontFamily: 'Lora',
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 4))),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                    padding: EdgeInsets.only(top: 5),
+                                    child: Text(
+                                        '${DateFormat.yMMMMd().format(DateTime.now())}  |',
                                         style: TextStyle(
-                                            color: Color(0xFF14568C),
-                                            fontSize: 18)),
-                                  ],
-                                ))
+                                            color: Colors.white,
+                                            fontSize: 18))),
+                                Container(
+                                  padding: EdgeInsets.only(top: 5, left: 10),
+                                  child: Text(
+                                      '${locationService.userLocation.administrativeArea}, ${locationService.userLocation.country}',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18)),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            showSearch(
-                                context: context,
-                                delegate: SearchNews(newsService: newsService));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'Search for News',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                                Icon(Icons.search, color: Colors.grey)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ))
                 ],
               ),
             ),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                    context: context,
+                    delegate: SearchNews(newsService: newsService));
+              },
+            ),
+            IconButton(
+                icon: Icon(Icons.collections_bookmark), onPressed: () {}),
+            IconButton(icon: Icon(Icons.sort), onPressed: () {})
+          ],
         ),
         SliverList(
           delegate: SliverChildListDelegate([
             Padding(
-              padding: const EdgeInsets.only(top: 16.0, left: 16, bottom: 5),
+              padding: const EdgeInsets.only(top: 32.0, left: 16, bottom: 5),
               child: Text(
                 'Latest News',
                 style: TextStyle(color: Color(0xFF14568C), fontSize: 24),
