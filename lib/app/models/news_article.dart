@@ -39,8 +39,8 @@ class NewsArticle {
   /// Named Constructor which receives a map [responseMap] and parses
   /// it into a [NewsArticle] instance.
   NewsArticle.fromMap(Map articleMap) {
-    sourceId = articleMap['source']['id'];
-    sourceName = articleMap['source']['name'];
+    sourceId = articleMap['sourceId'];
+    sourceName = articleMap['sourceName'];
     author = articleMap['author'];
     title = articleMap['title'];
     description = articleMap['description'];

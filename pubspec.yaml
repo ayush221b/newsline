@@ -14,7 +14,7 @@ description: An app which brings to you the latest News based on your location.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -36,10 +36,25 @@ dependencies:
   font_awesome_flutter: ^8.4.0
 
   # To find commonly used locations in the device filesystem
-  path_provider: ^1.1.0
+  path_provider: ^0.5.0+1
 
   # To provide tools for reactive programming
   rxdart: ^0.22.0
+
+  # To use svg in project
+  flutter_svg: ^0.13.0+2
+
+  # To use international formats
+  intl: any
+
+  # To open article urls
+  flutter_custom_tabs: ^0.6.0
+
+  # To cache images from the network on device
+  cached_network_image: ^0.8.0
+
+  # To share news to other platforms
+  share: any
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +74,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+   - assets/image/news.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -74,12 +89,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora-Regular.ttf
+        - asset: assets/fonts/Lora-Bold.ttf
+          weight: 700
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

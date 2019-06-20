@@ -62,11 +62,11 @@ class DBHelper {
 
     List<Map> list;
     try {
-      list = await dbclient.query('ARTICLES', where: 'url=$url', limit: 1);
+      list = await dbclient.query('ARTICLES', where: 'url=\'$url\'', limit: 1);
     } catch (e) {
-      print('Error is : ' + e);
+      print('Error is : ' + e.toString());
     }
-    if (list.length == 1) {
+    if (list != null && list.length == 1) {
       return true;
     } else {
       return false;

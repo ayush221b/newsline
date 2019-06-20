@@ -46,7 +46,6 @@ class NewsService extends ChangeNotifier {
 
     // Update NewsLoadState to Loading
     _newsLoadStateSubject.add(NewsLoadState.Loading);
-    notifyListeners();
 
     try {
       http.Response apiResponse = await http.get(baseUrl + requestParams);
@@ -60,7 +59,7 @@ class NewsService extends ChangeNotifier {
         // get the articles list
         List decodedArticlesList = decodedJsonMap['articles'];
 
-        // if there is atleast one article, then add 
+        // if there is atleast one article, then add
         // the list to db
         if (decodedArticlesList.length > 0)
           await addArticlesToDb(decodedArticlesList);
@@ -75,43 +74,44 @@ class NewsService extends ChangeNotifier {
 
   /// Add articles to database
   Future addArticlesToDb(List articles) async {
-
-    // Iterate through the list of articles and 
+    // Iterate through the list of articles and
     // add each article to db.
     articles.forEach((article) async {
       // Check if the article already exists
       bool isPresent = await _dbhelper.findMatchingArticle(article['url']);
 
       if (!isPresent) {
-        // Add article to Database
-        await _dbhelper.saveArticle(article);
+        Map<String, dynamic> articleToSave = Map.from(article);
+        articleToSave.remove('source');
+        articleToSave['sourceId'] = article['source']['id'] ?? '';
+        articleToSave['sourceName'] = article['source']['name'];
+
+        if (articleToSave['content'] != null ||
+            articleToSave['description'] != null)
+          // Add article to Database
+          await _dbhelper.saveArticle(articleToSave);
       }
     });
   }
 
   /// Fetch the cached articles from database
-  Future getArticlesFromDb({bool toRefresh = false}) async {
-
+  Future getArticlesFromDb({bool toRefresh = false, String countryCode}) async {
     // Update NewsLoadState
     _newsLoadStateSubject.add(NewsLoadState.Loading);
-    notifyListeners();
 
     // Get articles from db
     List<NewsArticle> cachedArticles = await _dbhelper.getArticles();
 
     // If to refresh is selected then articles must be fetched again,
     // after truncating the table.
-    if (toRefresh) {
+    if (toRefresh && countryCode != null) {
       bool internetPresent = await checkForInternet();
 
       if (internetPresent) {
-
         await _dbhelper.truncateTable();
-        await getArticlesFromApi();
+        await getArticlesFromApi(country: countryCode);
         await getArticlesFromDb(toRefresh: false);
-
       } else {
-
         // Store cached articles in master list if internet not present.
         _articlesList = cachedArticles.reversed.toList();
         updateNewsLoadState();
@@ -123,7 +123,8 @@ class NewsService extends ChangeNotifier {
         updateNewsLoadState();
       } else {
         // Fetch articles if not present in database
-        await getArticlesFromApi();
+        await getArticlesFromApi(country: countryCode);
+        await getArticlesFromDb(toRefresh: false);
       }
     }
   }
@@ -135,6 +136,5 @@ class NewsService extends ChangeNotifier {
     } else {
       _newsLoadStateSubject.add(NewsLoadState.Vacant);
     }
-    notifyListeners();
   }
 }
