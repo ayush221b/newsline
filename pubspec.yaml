@@ -47,8 +47,14 @@ dependencies:
   # To use international formats
   intl: any
 
+  # To open article urls
+  flutter_custom_tabs: ^0.6.0
+
   # To cache images from the network on device
   cached_network_image: ^0.8.0
+
+  # To share news to other platforms
+  share: any
 
 dev_dependencies:
   flutter_test:
@@ -83,10 +89,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:newsline/app/services/location_service.dart';
 import 'package:newsline/app/services/news_service.dart';
+import 'package:newsline/app/ui/screens/single_news_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -126,42 +127,52 @@ class NewsView extends StatelessWidget {
             (context, i) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Hero(
-                  tag: newsService.articles[i].url,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    height: 220,
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 5.0,
-                            offset: Offset(5, 5))
-                      ],
-                      color: Colors.indigo,
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: CachedNetworkImageProvider(
-                            newsService.articles[i].urlToImage ?? '',
-                          )),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        ' ${newsService.articles[i].title} ',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            shadows: <Shadow>[
-                              Shadow(
-                                offset: Offset(1.0, 1.0),
-                                blurRadius: 3.0,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              )
-                            ],
-                            backgroundColor: Colors.black45),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return SingleNewsScreen(
+                        newsArticle: newsService.articles[i],
+                      );
+                    }));
+                  },
+                  child: Hero(
+                    tag: newsService.articles[i].url,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      height: 220,
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 5.0,
+                              offset: Offset(5, 5))
+                        ],
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(
+                              newsService.articles[i].urlToImage ?? '',
+                            )),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          ' ${newsService.articles[i].title} ',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              shadows: <Shadow>[
+                                Shadow(
+                                  offset: Offset(1.0, 1.0),
+                                  blurRadius: 3.0,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                )
+                              ],
+                              backgroundColor: Colors.black45),
+                        ),
                       ),
                     ),
                   ),
