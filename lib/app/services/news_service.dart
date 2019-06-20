@@ -81,20 +81,21 @@ class NewsService extends ChangeNotifier {
       bool isPresent = await _dbhelper.findMatchingArticle(article['url']);
 
       if (!isPresent) {
-        
         Map<String, dynamic> articleToSave = Map.from(article);
         articleToSave.remove('source');
         articleToSave['sourceId'] = article['source']['id'] ?? '';
         articleToSave['sourceName'] = article['source']['name'];
-        // Add article to Database
-        await _dbhelper.saveArticle(articleToSave);
+
+        if (articleToSave['content'] != null ||
+            articleToSave['description'] != null)
+          // Add article to Database
+          await _dbhelper.saveArticle(articleToSave);
       }
     });
   }
 
   /// Fetch the cached articles from database
-  Future getArticlesFromDb(
-      {bool toRefresh = false, String countryCode}) async {
+  Future getArticlesFromDb({bool toRefresh = false, String countryCode}) async {
     // Update NewsLoadState
     _newsLoadStateSubject.add(NewsLoadState.Loading);
 

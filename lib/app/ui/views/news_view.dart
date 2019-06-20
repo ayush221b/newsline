@@ -3,6 +3,7 @@ import 'package:intl/intl.dart' show DateFormat;
 import 'package:newsline/app/services/location_service.dart';
 import 'package:newsline/app/services/news_service.dart';
 import 'package:newsline/app/ui/screens/single_news_screen.dart';
+import 'package:newsline/app/ui/views/search_view.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -82,17 +83,34 @@ class NewsView extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          fillColor: Colors.white70,
-                          hintText: 'Search for news',
-                          suffixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          )),
-                    ),
-                  )
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            showSearch(
+                                context: context,
+                                delegate: SearchNews(newsService: newsService));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Search for News',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Icon(Icons.search, color: Colors.grey)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ))
                 ],
               ),
             ),
