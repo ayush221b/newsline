@@ -85,6 +85,7 @@ class NewsService extends ChangeNotifier {
         articleToSave.remove('source');
         articleToSave['sourceId'] = article['source']['id'] ?? '';
         articleToSave['sourceName'] = article['source']['name'];
+        articleToSave['isBookmarked'] = false;
 
         if (articleToSave['content'] != null ||
             articleToSave['description'] != null)
@@ -127,6 +128,18 @@ class NewsService extends ChangeNotifier {
         await getArticlesFromDb(toRefresh: false);
       }
     }
+  }
+
+  /// Update the bookmark status of a NewsArticle
+  Future updateArticleBookmark({bool toBookmark = true, String url}) async {
+    await _dbhelper.updateBookmarkState(toBookmark: toBookmark, url: url);
+  }
+
+  /// Get a specific NewsArticle, useful for the UI response
+  /// while updating the bookmark state of the article
+  Future<NewsArticle> getSingleArticle(String url) async {
+    NewsArticle newsArticle = await _dbhelper.getSingleArticle(url);
+    return newsArticle;
   }
 
   /// Update NewsLoadState as per the availability of articles

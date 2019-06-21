@@ -34,7 +34,7 @@ class DBHelper {
         "author TEXT, title TEXT," +
         "description TEXT, url TEXT," +
         "urlToImage TEXT, publishedAt TEXT," +
-        "content TEXT, category TEXT )");
+        "content TEXT, isBookmarked TEXT )");
     print("Created ARTICLES table");
   }
 
@@ -92,10 +92,16 @@ class DBHelper {
     return articles;
   }
 
+  Future updateBookmarkState({bool toBookmark = true, String url}) async {
+    var dbClient = await db;
+    await dbClient.update('ARTICLES', {'isBookmarked': toBookmark},
+        where: 'url=$url');
+  }
+
   /// Truncate table which contains the articles.
   /// This option will come in handy when refreshing articles in database.
   Future truncateTable() async {
     var dbClient = await db;
-    await dbClient.delete('ARTICLES');
+    await dbClient.delete('ARTICLES', where: 'isBookmarked=\'false\'');
   }
 }
