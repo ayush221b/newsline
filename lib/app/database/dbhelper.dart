@@ -77,7 +77,7 @@ class DBHelper {
   Future<NewsArticle> getSingleArticle(String url) async {
     var dbClient = await db;
     List<Map> articleList =
-        await dbClient.query('ARTICLES', where: 'url=$url', limit: 1);
+        await dbClient.query('ARTICLES', where: 'url=\'$url\'', limit: 1);
     return NewsArticle.fromMap(articleList[0]);
   }
 
@@ -94,8 +94,8 @@ class DBHelper {
 
   Future updateBookmarkState({bool toBookmark = true, String url}) async {
     var dbClient = await db;
-    await dbClient.update('ARTICLES', {'isBookmarked': toBookmark},
-        where: 'url=$url');
+    await dbClient.update('ARTICLES', {'isBookmarked': toBookmark.toString()},
+        where: 'url=\'$url\'');
   }
 
   /// Truncate table which contains the articles.

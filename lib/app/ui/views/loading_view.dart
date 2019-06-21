@@ -57,6 +57,8 @@ class _LoadingViewState extends State<LoadingView> {
           setState(() {
             _loadingText = 'Getting Your Location...';
           });
+        } else {
+          traceNewsLoadState();
         }
       });
   }
@@ -80,7 +82,7 @@ class _LoadingViewState extends State<LoadingView> {
       });
 
     String countryCode =
-        this.widget.locationService.userLocation.isoCountryCode;
+        this.widget.locationService.userLocation.isoCountryCode ?? 'in';
     this
         .widget
         .newsService
