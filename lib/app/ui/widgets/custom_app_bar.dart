@@ -84,7 +84,9 @@ class CustomAppBar extends StatelessWidget {
                 delegate: SearchNews(newsService: newsService));
           },
         ),
-        IconButton(icon: Icon(Icons.collections_bookmark), onPressed: () {}),
+        IconButton(icon: Icon(Icons.collections_bookmark), onPressed: () {
+          Navigator.of(context).pushNamed('/bookmarks');
+        }),
         
       ],
     );

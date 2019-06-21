@@ -92,10 +92,23 @@ class DBHelper {
     return articles;
   }
 
+  /// Update bookmark state in db
   Future updateBookmarkState({bool toBookmark = true, String url}) async {
     var dbClient = await db;
     await dbClient.update('ARTICLES', {'isBookmarked': toBookmark.toString()},
         where: 'url=\'$url\'');
+  }
+
+  /// Get bookmarks from db
+  Future<List<NewsArticle>> getBookmarkedArticles() async {
+    var dbClient = await db;
+    List<Map> resultsList =
+        await dbClient.query('ARTICLES', where: 'isBookmarked=\'true\'');
+    List<NewsArticle> bookmarkedArticles = new List();
+    for (int i = 0; i < resultsList.length; i++) {
+      bookmarkedArticles.add(NewsArticle.fromMap(resultsList[i]));
+    }
+    return bookmarkedArticles;
   }
 
   /// Truncate table which contains the articles.

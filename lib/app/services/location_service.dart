@@ -43,13 +43,11 @@ class LocationService extends ChangeNotifier {
       if (await checkForInternet()) {
         print('trying for current location');
         position = await _geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high);
-      }
-
-      if (position == null) {
+            desiredAccuracy: LocationAccuracy.best);
+      } else {
         print('trying for last known location');
         position = await _geolocator.getLastKnownPosition(
-            desiredAccuracy: LocationAccuracy.high);
+            desiredAccuracy: LocationAccuracy.best);
       }
 
       // Try to geocode only if the Position instance is not null.

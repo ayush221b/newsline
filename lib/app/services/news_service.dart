@@ -22,6 +22,14 @@ class NewsService extends ChangeNotifier {
     return _articlesList;
   }
 
+  /// Stores the master list of `NewsArticle` instances which are bookmarked
+  List<NewsArticle> _bookmarkedArticlesList = [];
+
+  /// Getter for the news articles list
+  List<NewsArticle> get bookmarks {
+    return _bookmarkedArticlesList;
+  }
+
   /// To enable listening to changes of `NewsLoadState`
   PublishSubject<NewsLoadState> _newsLoadStateSubject = PublishSubject();
 
@@ -133,6 +141,33 @@ class NewsService extends ChangeNotifier {
   /// Update the bookmark status of a NewsArticle
   Future updateArticleBookmark({bool toBookmark = true, String url}) async {
     await _dbhelper.updateBookmarkState(toBookmark: toBookmark, url: url);
+
+    NewsArticle newsArticle;
+
+    _articlesList.forEach((article) {
+      if (article.url == url) {
+        article.isBookmarked = toBookmark;
+        newsArticle = article;
+      }
+    });
+
+    if (toBookmark) {
+      _bookmarkedArticlesList.add(newsArticle);
+    } else {
+      _bookmarkedArticlesList.remove(newsArticle);
+    }
+
+    notifyListeners();
+  }
+
+  /// Fetch Bookmarked articles from DB
+  Future getBookmarkedArticles() async {
+    List<NewsArticle> bookmarkedArticles = [];
+
+    bookmarkedArticles = await _dbhelper.getBookmarkedArticles();
+
+    _bookmarkedArticlesList = bookmarkedArticles;
+    notifyListeners();
   }
 
   /// Get a specific NewsArticle, useful for the UI response

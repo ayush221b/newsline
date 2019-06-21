@@ -19,7 +19,7 @@ class ArticleInformationRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('${newsArticle.author ?? ''}'),
+          Text('${newsArticle.author?.substring(0,15) ?? ''}'),
           Text('${DateFormat.yMMMMd().format(newsArticle.publishedAt)}'),
           IconButton(
             icon: Icon(

@@ -27,7 +27,7 @@ class _BookmarkButtonState extends State<BookmarkButton> {
       icon: Icon(
         newsArticle.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
         color: Colors.red,
-        size: 20,
+        size: 18,
       ),
       onPressed: () async {
         if (newsArticle.isBookmarked) {
