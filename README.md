@@ -1,6 +1,8 @@
 # Newsline
 
+<a href="https://ibb.co/c3Kb1yc"><img src="https://i.ibb.co/c3Kb1yc/get-location.png" alt="get-location" border="0"></a> <a href="https://ibb.co/F8ksM2h"><img src="https://i.ibb.co/F8ksM2h/onboard-1.png" alt="onboard-1" border="0"></a> <a href="https://ibb.co/N7nTDjg"><img src="https://i.ibb.co/N7nTDjg/latest-articles.png" alt="latest-articles" border="0"></a> <a href="https://ibb.co/0rXChty"><img src="https://i.ibb.co/0rXChty/article-details.png" alt="article-details" border="0"></a> <a href="https://ibb.co/jDM7vsw"><img src="https://i.ibb.co/jDM7vsw/pull-to-refresh.png" alt="pull-to-refresh" border="0"></a>
 
+Link to APK : [http://bit.ly/newslineapp](http://bit.ly/newslineapp)
 
 Newsline is an android application made with flutter which makes use of [NewsAPI.org](http://newsapi.org/) to fetch and serve the latest and trending news as per the user's location. The location is taken in realtime and not stored anywhere except the user's device.
 
@@ -24,6 +26,7 @@ On App Launch:
 4. Jump to article on the web
 5. Bookmark articles for reading later
 6. Pull to refresh wherever articles are listed
+7. Search from fetched articles
 
 ## Getting Started with Flutter
 
