@@ -12,6 +12,7 @@ import 'package:meta/meta.dart';
 /// `publishedAt` : Date and Time when the article was published in UTC(+000)
 /// `content` : Content of article, truncated to 260 characters (Developer Plan Limit)
 /// `category` : Category of article
+/// `isBookmarked` : Hasthe user bookmarked this news article
 class NewsArticle {
   String sourceId;
   String sourceName;
@@ -22,19 +23,20 @@ class NewsArticle {
   String urlToImage;
   DateTime publishedAt;
   String content;
-  String category;
+  bool isBookmarked;
 
-  NewsArticle(
-      {@required this.sourceId,
-      @required this.sourceName,
-      @required this.author,
-      @required this.title,
-      @required this.description,
-      @required this.url,
-      @required this.urlToImage,
-      @required this.publishedAt,
-      @required this.content,
-      this.category});
+  NewsArticle({
+    @required this.sourceId,
+    @required this.sourceName,
+    @required this.author,
+    @required this.title,
+    @required this.description,
+    @required this.url,
+    @required this.urlToImage,
+    @required this.publishedAt,
+    @required this.content,
+    @required this.isBookmarked,
+  });
 
   /// Named Constructor which receives a map [responseMap] and parses
   /// it into a [NewsArticle] instance.
@@ -48,7 +50,8 @@ class NewsArticle {
     urlToImage = articleMap['urlToImage'];
     publishedAt = DateTime.parse(articleMap['publishedAt']);
     content = articleMap['content'];
-    if (articleMap['category'] != null) category = articleMap['category'];
+    isBookmarked =
+        articleMap['isBookmarked'].toString().toLowerCase() == 'true';
   }
 
   /// Function to generate a `Map<String, dynamic>` from a `NewsArticle` instance.
@@ -64,8 +67,7 @@ class NewsArticle {
     data['urlToImage'] = this.urlToImage;
     data['publishedAt'] = this.publishedAt.toString();
     data['content'] = this.content;
-
-    if (this.category != null) data['category'] = this.category;
+    data['isBookmarked'] = this.isBookmarked.toString();
 
     return data;
   }

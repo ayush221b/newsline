@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:newsline/app/models/location.dart';
+import 'package:newsline/app/services/internet-service.dart';
 import 'package:rxdart/subjects.dart';
 
 /// Utility to keep track of the availability of users location,
@@ -38,12 +39,15 @@ class LocationService extends ChangeNotifier {
     _locationStateSubject.add(LocationState.Finding);
 
     try {
-      Position position = await _geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-
-      if (position == null) {
+      Position position;
+      if (await checkForInternet()) {
+        print('trying for current location');
+        position = await _geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best);
+      } else {
+        print('trying for last known location');
         position = await _geolocator.getLastKnownPosition(
-            desiredAccuracy: LocationAccuracy.high);
+            desiredAccuracy: LocationAccuracy.best);
       }
 
       // Try to geocode only if the Position instance is not null.

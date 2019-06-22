@@ -34,7 +34,7 @@ class DBHelper {
         "author TEXT, title TEXT," +
         "description TEXT, url TEXT," +
         "urlToImage TEXT, publishedAt TEXT," +
-        "content TEXT, category TEXT )");
+        "content TEXT, isBookmarked TEXT )");
     print("Created ARTICLES table");
   }
 
@@ -77,7 +77,7 @@ class DBHelper {
   Future<NewsArticle> getSingleArticle(String url) async {
     var dbClient = await db;
     List<Map> articleList =
-        await dbClient.query('ARTICLES', where: 'url=$url', limit: 1);
+        await dbClient.query('ARTICLES', where: 'url=\'$url\'', limit: 1);
     return NewsArticle.fromMap(articleList[0]);
   }
 
@@ -92,10 +92,29 @@ class DBHelper {
     return articles;
   }
 
+  /// Update bookmark state in db
+  Future updateBookmarkState({bool toBookmark = true, String url}) async {
+    var dbClient = await db;
+    await dbClient.update('ARTICLES', {'isBookmarked': toBookmark.toString()},
+        where: 'url=\'$url\'');
+  }
+
+  /// Get bookmarks from db
+  Future<List<NewsArticle>> getBookmarkedArticles() async {
+    var dbClient = await db;
+    List<Map> resultsList =
+        await dbClient.query('ARTICLES', where: 'isBookmarked=\'true\'');
+    List<NewsArticle> bookmarkedArticles = new List();
+    for (int i = 0; i < resultsList.length; i++) {
+      bookmarkedArticles.add(NewsArticle.fromMap(resultsList[i]));
+    }
+    return bookmarkedArticles;
+  }
+
   /// Truncate table which contains the articles.
   /// This option will come in handy when refreshing articles in database.
   Future truncateTable() async {
     var dbClient = await db;
-    await dbClient.delete('ARTICLES');
+    await dbClient.delete('ARTICLES', where: 'isBookmarked=\'false\'');
   }
 }
