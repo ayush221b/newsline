@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:newsline/app/models/news_article.dart';
 import 'package:newsline/app/services/news_service.dart';
 import 'package:newsline/app/ui/widgets/news_article_card.dart';
@@ -40,42 +41,48 @@ class _BookmarkedArticlesViewState extends State<BookmarkedArticlesView> {
     var newsService = Provider.of<NewsService>(context);
     articles = newsService.bookmarks;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Bookmarked Articles'),
-        automaticallyImplyLeading: true,
-      ),
-      body: _isLoading
-          ? Center(
-              child: Text('Loading Articles...'),
-            )
-          : articles.length == 0
-              ? Container(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'You have not bookmarked any articles. \nPlease consider bookmarking some.',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: articles.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    NewsArticle article = articles[index];
-                    return Dismissible(
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      onDismissed: (_) async {
-                        await newsService.updateArticleBookmark(
-                            url: article.url, toBookmark: false);
+        appBar: AppBar(
+          title: Text('Bookmarked Articles'),
+          automaticallyImplyLeading: true,
+        ),
+        body: _isLoading
+            ? Center(
+                child: Text('Loading Articles...'),
+              )
+            : articles.length == 0
+                ? Container(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      'You have not bookmarked any articles. \nPlease consider bookmarking some.',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  )
+                : LiquidPullToRefresh(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  showChildOpacityTransition: false,
+                    onRefresh: () async {
+                      await newsService.getBookmarkedArticles();
+                    },
+                    child: ListView.builder(
+                      itemCount: articles.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        NewsArticle article = articles[index];
+                        return Dismissible(
+                          background: Container(
+                            color: Colors.red,
+                          ),
+                          onDismissed: (_) async {
+                            await newsService.updateArticleBookmark(
+                                url: article.url, toBookmark: false);
                             articles.remove(article);
+                          },
+                          child: NewsArticleCard(
+                            article: article,
+                          ),
+                          key: Key('${article.url}'),
+                        );
                       },
-                      child: NewsArticleCard(
-                        article: article,
-                      ),
-                      key: Key('${article.url}'),
-                    );
-                  },
-                ),
-    );
+                    ),
+                  ));
   }
 }

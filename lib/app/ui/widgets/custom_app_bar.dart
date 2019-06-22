@@ -59,6 +59,7 @@ class CustomAppBar extends StatelessWidget {
                                         color: Colors.white, fontSize: 18))),
                             Container(
                               padding: EdgeInsets.only(top: 5, left: 10),
+                              width: 150,
                               child: Text(
                                   '${locationService.userLocation.administrativeArea}, ${locationService.userLocation.country}',
                                   style: TextStyle(
