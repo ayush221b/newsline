@@ -23,9 +23,16 @@ class _ArticleHeaderState extends State<ArticleHeader> {
   }
 
   void checkImageLoad() async {
-    final response = await http.head(this.widget.newsArticle.urlToImage);
+    try {
+      final response = await http.head(this.widget.newsArticle.urlToImage);
 
-    if (response.statusCode != 200) {
+      if (response.statusCode != 200) {
+        setState(() {
+          shouldFallback = true;
+        });
+      }
+    } catch (e) {
+      print(e);
       setState(() {
         shouldFallback = true;
       });

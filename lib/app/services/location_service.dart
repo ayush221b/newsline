@@ -40,13 +40,14 @@ class LocationService extends ChangeNotifier {
 
     try {
       Position position;
-
-      position = await _geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-
-      if (position == null)
-        position = await _geolocator.getLastKnownPosition(
+      if (await checkForInternet()) {
+        position = await _geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.best);
+
+        if (position == null)
+          position = await _geolocator.getLastKnownPosition(
+              desiredAccuracy: LocationAccuracy.best);
+      }
 
       // Try to geocode only if the Position instance is not null.
       if (position != null) {

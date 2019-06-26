@@ -56,6 +56,6 @@ void checkSendNotification() async {
         NotificationDetails(androidPlatformChannelSpecifics, null);
 
     await flutterLocalNotificationsPlugin.show(
-        0, 'Now Trending', '', platformChannelSpecifics);
+        0, '${article.title}', '', platformChannelSpecifics);
   }
 }

@@ -51,6 +51,7 @@ class _LoadingViewState extends State<LoadingView> {
           .locationService
           .locationStateSubject
           .listen((LocationState locationState) {
+            print(locationState);
         if (locationState == LocationState.Available) {
           traceNewsLoadState();
         } else if (locationState == LocationState.Finding) {
@@ -58,6 +59,7 @@ class _LoadingViewState extends State<LoadingView> {
             _loadingText = 'Getting Your Location...';
           });
         } else {
+          print('Here');
           traceNewsLoadState();
         }
       });
@@ -82,7 +84,7 @@ class _LoadingViewState extends State<LoadingView> {
       });
 
     String countryCode =
-        this.widget.locationService.userLocation.isoCountryCode ?? 'in';
+        this.widget.locationService.userLocation?.isoCountryCode ?? 'in';
     this
         .widget
         .newsService
