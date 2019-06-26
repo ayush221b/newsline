@@ -28,6 +28,15 @@ On App Launch:
 6. Pull to refresh wherever articles are listed
 7. Search from fetched articles
 
+## To Contribute
+
+1. For the Repository to your Github Account
+2. Clone the Repository
+```
+git clone https://github.com/<YOUR_GITHUB_USERNAME>/newsline.git
+```
+3. Make some changes, commit, push and Open a Pull Request
+
 ## Getting Started with Flutter
 
 This project is a starting point for a Flutter application.
